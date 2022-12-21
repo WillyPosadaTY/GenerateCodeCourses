@@ -27,7 +27,6 @@ namespace GenerateCodeCourses
             string nombres = "";
             string cantSpaces = this.students.ToString();
             int spaces = cantSpaces.Length;
-            Console.WriteLine(spaces + "-------------------");
             string cadena = "";
             string pivote = "";
             for(int i = 1; i < spaces; i++)

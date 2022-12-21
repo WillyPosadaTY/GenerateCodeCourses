@@ -89,7 +89,6 @@ Periods numbers = new Periods();
 
 int numberVal = numbers.validateNumber(number, types.getMaxPeriod());
 
-Console.WriteLine(numberVal+"------------");
 while (numberVal < 0 || numberVal > types.getMaxPeriod())
 {
     Console.WriteLine("Ingrese un número válido para el periodo: M 1..10, S 1,2, Q 1..3");
