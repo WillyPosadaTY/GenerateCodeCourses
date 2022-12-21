@@ -12,7 +12,9 @@ string name;
 string year;
 string type;
 string number;
-
+string codeTeacher;
+string codeCourse;
+string codePeriod;
 /**
  * Captura información de curso
  */
@@ -29,8 +31,8 @@ while (courseVal < 0) {
     course = Console.ReadLine();
     courseVal = courses.validate(course);
 }
-Console.WriteLine("el codigo del curso es DCC"+ courseVal);
-
+Console.WriteLine("el codigo del curso es DCC"+ course);
+codeCourse = "DCC" + course;
 /**
  * Captura información de profesor
  */
@@ -46,6 +48,8 @@ Teachers teacher = new Teachers(title, name);
 Console.WriteLine("El profesor es: " + teacher.getTitle() + ' ' + teacher.getName());
 Console.WriteLine("El código inverido es: " + teacher.getTitleInvested());
 Console.WriteLine("últimas letras profesor: " + teacher.getLastLetter());
+codeTeacher = teacher.getTitleInvested();
+codeTeacher += teacher.getLastLetter();
 /**
  * Captura información de periodo
  */
@@ -86,13 +90,21 @@ Periods numbers = new Periods();
 int numberVal = numbers.validateNumber(number, types.getMaxPeriod());
 
 Console.WriteLine(numberVal+"------------");
-while (numberVal < types.getMaxPeriod())
+while (numberVal < 0 || numberVal > types.getMaxPeriod())
 {
     Console.WriteLine("Ingrese un número válido para el periodo: M 1..10, S 1,2, Q 1..3");
     number = Console.ReadLine();
     numberVal = numbers.validateNumber(number, types.getMaxPeriod());
 }
-Console.WriteLine("Periodo: "+yearVal+typeVal+numberVal);
+
+Console.WriteLine("Ingrese la cantidad de estudiantes");
+Periods periodValid = new Periods(yearVal, typeVal, numberVal);
+codePeriod = yearVal + type + numberVal;
+int estudiantes = Convert.ToInt32(Console.ReadLine());
+
+Exam exam = new Exam(codeCourse, codeTeacher, codePeriod, estudiantes);
+string nombres = exam.generateCodes();
+Console.WriteLine(nombres);
 
 
 

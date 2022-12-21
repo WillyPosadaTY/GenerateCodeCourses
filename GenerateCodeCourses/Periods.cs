@@ -8,19 +8,19 @@ namespace GenerateCodeCourses
 {
     internal class Periods
     {
-        string year;
-        string type;
-        string number;
+        int year;
+        char type;
+        int number;
         int maxPeriod;
 
         public Periods()
         {
-            this.year = "";
-            this.type = "";
-            this.number = "";
+            this.year = 0;
+            _ = this.type;
+            this.number = 0;
             this.maxPeriod = 0;
         }
-        public Periods(string year, string type, string number)
+        public Periods(int year, char type, int number)
         {
             this.year = year;
             this.type = type;
