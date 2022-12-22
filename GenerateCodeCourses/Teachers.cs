@@ -9,21 +9,27 @@ namespace GenerateCodeCourses
 {
     internal class Teachers
     {
-        string title;
-        string name;
+        string teacher;
         
-        public Teachers(string title, string name)
+        public Teachers(string teacher)
         {
-            this.title = title;
-            this.name = name;
+            this.teacher = teacher;
         }
         public string getTitle()
         {
-            return this.title;
+            var title = this.teacher.Split(" ");
+            return title[0];
         }
         public string getName()
         {
-            return this.name;
+            var titleName = this.teacher.Split(" ");
+            var name = "";
+            titleName = titleName.Where((item, index) => index != 0).ToArray();
+            foreach (string names in titleName)
+            {
+                name += String.Join(" ", names)+" ";
+            }
+            return name;
         }
 
         
@@ -37,12 +43,24 @@ namespace GenerateCodeCourses
         public string getLastLetter()
         {
             string letter = "";
-            string[] nameTeacher = this.name.Split(" ");
+            string[] nameTeacher = getName().Split(" ");
             foreach (string letters in nameTeacher)
             {
-                letter += letters.Substring(letters.Length - 1, 1);
+                try 
+                {
+                    letter += letters.Substring(letters.Length - 1, 1);
+                } 
+                catch
+                {
+
+                }
             }
             return letter;
+        }
+
+        public Teachers selectTeacher(List<Teachers> teacher, int position)
+        {
+            return teacher[position];
         }
 
 

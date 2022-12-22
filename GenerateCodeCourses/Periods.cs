@@ -8,84 +8,120 @@ namespace GenerateCodeCourses
 {
     internal class Periods
     {
-        int year;
+        string period;
+        string year;
         char type;
         int number;
         int maxPeriod;
+        private readonly string PERIOD_SEMESTER_TYPE = "S";
+        private readonly string PERIOD_QUARTER_TYPE = "Q";
+        private readonly string PERIOD_MONTH_TYPE = "M";
 
-        public Periods()
+        public Periods(string period)
         {
-            this.year = 0;
-            _ = this.type;
-            this.number = 0;
-            this.maxPeriod = 0;
-        }
-        public Periods(int year, char type, int number)
-        {
-            this.year = year;
-            this.type = type;
-            this.number = number;
-            this.maxPeriod = 0;
+            this.period = period;
         }
 
-        public int validateYear(string year)
+
+        public bool validatePeriod()
+        {
+            string[] prueba = new string[2];
+            if (this.period.Split((PERIOD_MONTH_TYPE))[0].Length == 4)
+            {
+                prueba = this.period.Split(PERIOD_MONTH_TYPE);
+                this.type = Char.Parse(PERIOD_MONTH_TYPE);
+            }
+            else if(this.period.Split(PERIOD_QUARTER_TYPE)[0].Length == 4)
+            {
+                prueba = this.period.Split(PERIOD_QUARTER_TYPE);
+                this.type = Char.Parse(PERIOD_QUARTER_TYPE);
+            }
+            else if(this.period.Split(PERIOD_SEMESTER_TYPE)[0].Length == 4)
+            {
+                prueba = this.period.Split(PERIOD_SEMESTER_TYPE);
+                this.type = Char.Parse(PERIOD_SEMESTER_TYPE);
+                
+            }
+            this.type = validateType();
+            this.year = prueba[0];
+            this.year = validateYear().ToString();
+            if(this.year != "-1")
+            {
+                if(int.TryParse(prueba[1] , out number))
+                {
+                    this.number = validateNumber();
+                    if(this.number > 0)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            return false;
+        }
+
+        private int validateYear()
         {
 
             int result = -1;
-            if (year.Length == 4)
+            if (this.year.ToString().Length == 4)
             {
-                if (int.TryParse(year, out result))
+                if (this.year.ToString().Length == 4)
                 {
-                    if (2021 <= Convert.ToInt32(year) && Convert.ToInt32(year) <= 2023)
+                    if (int.TryParse(this.year, out result))
                     {
-                        return result;
+                        if (2021 <= Convert.ToInt32(this.year) && Convert.ToInt32(this.year) <= 2023)
+                        {
+                            return result;
+                        }
+                        return -1;
                     }
                     return -1;
                 }
-                return -1;
             }
             return -1;
         }
 
-        public char validateType(string type)
+        private char validateType()
         {
-            if (type.Length == 1)
+            
+            if (this.type.Equals(Char.Parse(PERIOD_SEMESTER_TYPE)))
             {
-                if (type.Equals("S"))
-                {
-                    setMaxPeriod(2);
-                    return 'S';
-                }
-                else if (type.Equals("Q"))
-                {
-                    setMaxPeriod(3);
-                    return 'Q';
-                }
-                else if (type.Equals("M"))
-                {
-                    setMaxPeriod(10);
-                    return 'M';
-                }
-                return 'N';
+                setMaxPeriod(2);
+                return Char.Parse(PERIOD_SEMESTER_TYPE);
             }
+            else if (this.type.Equals(Char.Parse(PERIOD_QUARTER_TYPE)))
+            {
+                setMaxPeriod(3);
+                return Char.Parse(PERIOD_QUARTER_TYPE);
+            }
+            else if (this.type.Equals(Char.Parse(PERIOD_MONTH_TYPE)))
+            {
+
+                setMaxPeriod(10);
+                return Char.Parse(PERIOD_MONTH_TYPE);
+            }
+
             return 'N';
         }
-        public int validateNumber(string number, int maxPer)
+        private int validateNumber()
         {
-            int results = -1;
-            if (int.TryParse(number, out results))
+            if (Convert.ToInt32(this.number) > 0 && Convert.ToInt32(this.number) <= getMaxPeriod())
             {
-                if (Convert.ToInt32(number) > 0 && Convert.ToInt32(number) <= maxPer)
-                {
-                    return Convert.ToInt32(number);
-                }
-                else
-                {
-                    return -1;
-                }
+                return Convert.ToInt32(number);
             }
-            return -1;
+            else
+            {
+                return -1;
+            }
+            
         }
+
+        public Periods selectPeriod(List<Periods> period, int position)
+        {
+            return period[position];
+        }
+
 
         private void setMaxPeriod(int number)
         {
@@ -95,6 +131,10 @@ namespace GenerateCodeCourses
         public int getMaxPeriod()
         {
             return this.maxPeriod;
+        }
+        public string getPeriod()
+        {
+            return this.period;
         }
     }
     

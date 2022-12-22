@@ -15,20 +15,29 @@ namespace GenerateCodeCourses
             this.course = course;
         }
 
+       
 
-        public int validate(string courseNum)
+        public int validate()
         {
 
             int result = -1;
-            if (courseNum.Length == 2)
+            if (this.course.Length == 2)
             {
-                if (int.TryParse(courseNum, out result))
+                if (int.TryParse(this.course, out result))
                 {
                     return result;
                 }
                 return -1;
             }
             return -1;
+        }
+        public string getCourse()
+        {
+            return this.course;
+        }
+        public string selectCourse(List<Courses> course, int position)
+        {
+            return course[position].getCourse();
         }
     }
 }

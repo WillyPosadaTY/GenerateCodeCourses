@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace GenerateCodeCourses
 {
-    internal class Exam
+    internal class GenerateCodes
     {
         string course;
         string teacher;
         string period;
         int students;
 
-        public Exam(string course, string teacher, string period, int students)
+        public GenerateCodes(string course, string teacher, string period, int students)
         {
            this.course= course;
            this.teacher= teacher;
