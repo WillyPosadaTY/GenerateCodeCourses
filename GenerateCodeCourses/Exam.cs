@@ -39,7 +39,7 @@ namespace GenerateCodeCourses
                 
                 try
                 {
-                    nombres += this.course + this.teacher + this.period + pivote.Substring(pivote.Length- spaces) + '\n';
+                    nombres += this.course + this.teacher.ToUpper() + '-' + this.period + pivote.Substring(pivote.Length- spaces) + '\n';
                 }
                 catch (ArgumentOutOfRangeException argumentOutOfRangeException)
                 {
